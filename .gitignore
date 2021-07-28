@@ -2,4 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/IfArrayContainArray/v15/.suo
+/.vs/*
+/.vs/IfArrayContainArray/v16/*
+/IfArrayContainArray/bin/*
+/IfArrayContainArray/obj/*

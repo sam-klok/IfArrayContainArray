@@ -20,16 +20,35 @@ namespace IfArrayContainArray
 
             int[] a = { 5, 1, 22, 25, 6, -1, 8, 10 };
             int[] b = { 1, 6, -1, 10 };   // O( n x m ) O (m)? 
-            //int[] b = { 5, 25, 22, 8 };
+            int[] c = { 5, 25, 22, 8 };
 
 
-            var r = AreArraysInclusiveSolution1(a, b);
+            Console.WriteLine("Solution 1");
+            Console.WriteLine(AreArraysInclusive_Solution1(a, b));
+            Console.WriteLine(AreArraysInclusive_Solution1(a, c));
+            Console.WriteLine();
 
-            Console.WriteLine(r);
-            Console.ReadLine();
+            Console.WriteLine("Solution 2");
+            Console.WriteLine(AreArraysInclusive_Solution2(a, b));
+            Console.WriteLine(AreArraysInclusive_Solution2(a, c));
+            Console.WriteLine();
+
+            //Console.WriteLine("Solution 3");
+            //Console.WriteLine(AreArraysInclusive_Solution3(a, b));
+            //Console.WriteLine(AreArraysInclusive_Solution3(a, c));
+            //Console.WriteLine();
+
+            Console.WriteLine("Press any(where is it?) key..");
+            Console.ReadKey();
         }
 
-        static bool AreArraysInclusiveSolution1(int[] a, int[] b)
+
+        // This is very straightforward algorithm,
+        // however it's not the most optimal one
+        // complexity of it is O( n x (m/2) ) 
+        // ..
+        //
+        static bool AreArraysInclusive_Solution1(int[] a, int[] b)
         {
             bool res = false;
             int pos = 0;
@@ -47,12 +66,49 @@ namespace IfArrayContainArray
                     }
                 }
 
-                res = tempRes;
                 if (!tempRes)
                     return false;
+
+                res = tempRes;
+
             }
 
             return res;
         }
+
+
+        // attempt #2
+        static bool AreArraysInclusive_Solution2(int[] a, int[] b)
+        {
+            int matchCount = 0;
+            int pos = 0;
+
+            for (var i = 0; i < a.Length; i++)
+            {
+               
+                for (int j = pos; j < b.Length; j++)
+                {
+                    if (a[i] == b[j])
+                    {
+                        pos = j;
+                        matchCount++;
+                        break;
+                    }
+                }
+
+            }
+
+            return (b.Length == matchCount);
+        }
+
+
+        // LINQ solution ignore the order, which we don't want
+        static bool AreArraysInclusive_Solution3(int[] a, int[] b)
+        {
+            //return a.Any(b.Contains);
+
+            return a.Intersect(b).Any();
+        }
+
     }
 }
